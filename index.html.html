@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+    <script src="./resumebuilder.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
+</head>
+
+<body>
+    <div class="row" id="FIELD">
+        <h2 class="text-center text-success">Resume builder</h2>
+        <div class="col-6 mx-2">
+            <h4 class="text-info text-center">Personal Information</h4>
+            <b>Name</b>
+            <input class="w-100" id="EnterName" />
+            <b>Mobile</b>
+            <input class="w-100" id="EnterMobile" />
+            <b>Email</b>
+            <input class="w-100" id="EnterEmail" />
+            <b>Address</b>
+            <textarea class="w-100" rows="3" id="EnterAddress"></textarea>
+            <h4 class="text-info text-center">Links</h4>
+            <b>Facebook</b>
+            <input class="w-100" id="EnterFb" />
+            <b>Twitter</b>
+            <input class="w-100" id="EnterTwitter" />
+            <b>Linkedin</b>
+            <input class="w-100" id="EnterLinkedin" />
+            <b>Github</b>
+            <input class="w-100" id="EnterGithub" />
+            <div class="my-4">
+                <b>Upload photo :</b>
+                <input type="file" id="EnterPhoto" />
+            </div>
+        </div>
+        <div class="col-5 mx-4">
+            <h4 class="text-info text-center">Professional qualification</h4>
+
+                        <div id="Objective">
+                <b>Objective</b>
+                <textarea rows=4 type="text" class="w-100" id="EnterObjective"></textarea>
+            </div>
+            <div id="Skills">
+                <b>Skills</b>
+                <input type="text" class="w-100 EnterSkills" />
+                <div class="text-center my-2" id="SkillAddBtn">
+                    <button class="btn btn-info" onclick="handleSkillAdd()">Add</i></button>
+                </div>
+            </div>
+
+            <br />
+            <div id="Education">
+                <b>Certification</b>
+                <input type="text" class="w-100 EnterEducation" />
+                <div class="text-center my-2" id="EducationAddBtn">
+                    <button class="btn btn-info" onclick="handleEducationAdd()">Add</button>
+                </div>
+            </div>
+
+            <br />
+            <div id="Project">
+                <b>Projects</b>
+                <textarea rows="4" class="w-100 EnterProject">
+                    </textarea>
+                <div class="text-center my-2" id="ProjectAddBtn">
+                    <button class="btn btn-info" onclick="handleProjectAdd()">Add</button>
+                </div>
+            </div>
+            <br />
+
+            <div id="Exp">
+                <b>Work Experience(if any)</b>
+                <textarea rows="4" class="w-100 EnterExp">
+                </textarea>
+                <div class="text-center my-2" id="ExpAddBtn">
+                    <button class="btn btn-info " onclick="handleExpAdd()">Add</button>
+                </div>
+            </div>
+
+        </div>            
+            <div class="text-center my-2">
+            <button class="btn btn-warning" onclick="handleGenerateCV()">Generate CV</button>
+            </div>
+    </div>
+    <div id="btns"style="display:none">
+        <button class="btn btn-warning my-2" onclick="handleHome()" id="back"><i class="bi bi-arrow-return-left"></i></button>
+        <button class="btn btn-warning my-2" onclick="handleDownloadCV()">Download CV</button>
+    </div>
+
+    <div class="container" style="display:none" id="CV">
+
+
+        <div class="row">
+            <div class="col-4">
+                <div style="height:250px" class="d-flex justify-content-center">
+                    <img id="CvImage" style="height:250px;width:250px;border-radius: 100%;" />
+                </div>
+                
+                    <h2 id="CvName">Lorem ipsum Lorem</h2>
+                    <br />
+                    <div>
+                        <span class="bi bi-telephone-fill"></span> :<span id="CvMobile"></span>
+                    </div>
+                    <br />
+                    <div>
+                        <span class="bi bi-envelope-fill"></span> :<span id="CvEmail"></span>
+                    </div>
+                    <br />
+                    <div>
+                        <span class="bi bi-map-fill"></span> :<span id="CvAddress"></span>
+                    </div>
+                    <br />
+                    <div class="d-flex justify-content-center">
+                    
+                        <span class="mx-2"><a id="CvFb"><i class="bi bi-facebook h3"></i></a></span>
+                        <span class="mx-2"><a id="CvTwitter" href="http://twitter.com"><i
+                                    class="bi bi-twitter h3"></i></a></span>
+                        <span class="mx-2"><a id="CvLinkedin" href="http://Linkedin.com"><i
+                                    class="bi bi-linkedin h3"></i></a></span>
+                        <span class="mx-2"><a id="CvGithub" href="http://github.com"><i
+                                    class="bi bi-github h3"></i></a></span>
+                    </div>
+                    <br />
+                    <h4 class="text-success text-center">Skills</h4>
+                    <br />
+                        <ul id="CvSkills" class="list-unstyled">
+                        </ul>
+            </div>
+                <div class="col-8" style="background-color:lightcyan">
+                        <h4 class="text-success text-center">Objective</h4>
+                        <p id="CvObjective"></p>
+
+                        <h4 class="text-success text-center">Education</h4>
+                        <ul id="CvEducation" class="list-unstyled">
+                        </ul>
+                    
+                        <h4 class="text-success text-center">Experience</h4>
+                        <ul id="CvExp" class="list-unstyled">
+                        </ul>
+                    
+                        <h4 class="text-success text-center">Projects</h4>
+                        <br />
+                        <ul id="CvProject" class="list-unstyled">
+                        </ul>
+                    </div>
+                </div>
+            </div>
+</body>
+</html>
